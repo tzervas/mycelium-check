@@ -13,9 +13,9 @@ workspace = true
 
 [dependencies]
 # The trusted checker (M-210), the M-362 baseline routing, and the manifest layer. No new dependency.
-mycelium-l1 = { git = "https://github.com/tzervas/mycelium-l1", rev = "cd32a1ed7ab7d2be38c9c3047da7318d182b7a1c" }
-mycelium-lsp = { git = "https://github.com/tzervas/mycelium-lsp", rev = "7a3cfad66a3cd8a9002d885b70fd5291e6919723" }
-mycelium-proj = { git = "https://github.com/tzervas/mycelium-proj", rev = "cfc934b32c0b7b57becbb7ddfe3c516712c6ec0e" }
+mycelium-l1 = { git = "https://github.com/tzervas/mycelium-l1", rev = "2b92f54349eb0d4f67e32e983874df76908b9ab6" }
+mycelium-lsp = { git = "https://github.com/tzervas/mycelium-lsp", rev = "ba86f11ef1b33bdd091e897f6549fb87058445fc" }
+mycelium-proj = { git = "https://github.com/tzervas/mycelium-proj", rev = "20b8a6d264ac728e81cfe8cd90cec8d2a91370be" }
 # M-643: the shared CLI substrate (stdin-or-file `read_source`). In-workspace path dep, std-only —
 # no new external crate enters the tree (KC-3).
 mycelium-cli-common = { git = "https://github.com/tzervas/mycelium-cli-common", rev = "c673fafdd1bcecb713e3560689af6ab152033867" }
