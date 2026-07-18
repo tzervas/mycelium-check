@@ -13,13 +13,40 @@ workspace = true
 
 [dependencies]
 # The trusted checker (M-210), the M-362 baseline routing, and the manifest layer. No new dependency.
-mycelium-l1 = { path = "../mycelium-l1" }
-mycelium-lsp = { path = "../mycelium-lsp" }
-mycelium-proj = { path = "../mycelium-proj" }
+mycelium-l1 = { git = "https://github.com/tzervas/mycelium-l1", rev = "cd32a1ed7ab7d2be38c9c3047da7318d182b7a1c" }
+mycelium-lsp = { git = "https://github.com/tzervas/mycelium-lsp", rev = "7a3cfad66a3cd8a9002d885b70fd5291e6919723" }
+mycelium-proj = { git = "https://github.com/tzervas/mycelium-proj", rev = "cfc934b32c0b7b57becbb7ddfe3c516712c6ec0e" }
 # M-643: the shared CLI substrate (stdin-or-file `read_source`). In-workspace path dep, std-only —
 # no new external crate enters the tree (KC-3).
-mycelium-cli-common = { path = "../mycelium-cli-common" }
+mycelium-cli-common = { git = "https://github.com/tzervas/mycelium-cli-common", rev = "c673fafdd1bcecb713e3560689af6ab152033867" }
 
 [[bin]]
 name = "myc-check"
 path = "src/bin/myc-check.rs"
+
+# --- standalone workspace root (course-correction Phase B, 2026-07-18; steer handoff §6.2) ---
+[workspace]
+
+[workspace.package]
+version = "0.464.0"
+edition = "2021"
+rust-version = "1.96.1"
+license = "MIT"
+repository = "https://github.com/tzervas/mycelium-check"
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+blake3 = "1"
+
+[workspace.lints.rust]
+# ADR-014: unsafe permitted-but-documented; the check is clippy::undocumented_unsafe_blocks.
+unsafe_code = "allow"
+
+[workspace.lints.clippy]
+all = { level = "warn", priority = -1 }
+undocumented_unsafe_blocks = "warn"
+
+# G2 never-silent arithmetic: release builds panic on overflow (monorepo parity).
+[profile.release]
+overflow-checks = true
