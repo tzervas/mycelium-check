@@ -13,7 +13,7 @@ workspace = true
 
 [dependencies]
 # The trusted checker (M-210), the M-362 baseline routing, and the manifest layer. No new dependency.
-mycelium-l1 = { git = "https://github.com/tzervas/mycelium-l1", rev = "2b92f54349eb0d4f67e32e983874df76908b9ab6" }
+mycelium-l1 = { git = "https://github.com/tzervas/mycelium-l1", rev = "31f7aaa956cca0e1c7a894eeaff4d10d58b5b2b8" }
 mycelium-lsp = { git = "https://github.com/tzervas/mycelium-lsp", rev = "ba86f11ef1b33bdd091e897f6549fb87058445fc" }
 mycelium-proj = { git = "https://github.com/tzervas/mycelium-proj", rev = "20b8a6d264ac728e81cfe8cd90cec8d2a91370be" }
 # M-643: the shared CLI substrate (stdin-or-file `read_source`). In-workspace path dep, std-only —
