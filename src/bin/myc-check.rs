@@ -25,7 +25,8 @@ fn usage() -> ExitCode {
     eprintln!(
         "usage: myc-check [--expect-main <ret-type>] <file.myc | ->\n       \
          myc-check --project <dir> | --config <mycelium-proj.toml> [--explain]\n       \
-         myc-check --phylum <dir> [--json]     # whole-phylum cross-nodule check (M-1006)"
+         myc-check --phylum <dir> [--json]     # whole-phylum cross-nodule check (M-1006)\n       \
+         myc-check --version"
     );
     ExitCode::from(64)
 }
@@ -42,6 +43,19 @@ fn main() -> ExitCode {
     let mut args = Args::from_env();
     while let Some(a) = args.next() {
         match a.as_str() {
+            // Report the version and exit 0. Without this, `--version` fell through to the
+            // positional-path arm and was opened as a FILE, producing
+            // "io-error: --version: No such file or directory" — a confusing failure for the
+            // most conventional flag there is.
+            //
+            // This is load-bearing for CI, not cosmetic: ap-workflows'
+            // reusable-ci-mycelium.yml reads a version to honour its `mycelium-version` input
+            // and REFUSES the pin when the binary reports nothing ("Refusing rather than
+            // pretending it was honoured"). So the pin is unusable until this exists.
+            "--version" | "-V" => {
+                println!("myc-check {}", env!("CARGO_PKG_VERSION"));
+                return ExitCode::SUCCESS;
+            }
             "--expect-main" => match args.value() {
                 Some(t) => expect_main = Some(t),
                 None => return usage(),
